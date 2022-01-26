@@ -10,15 +10,15 @@
         }
     ],
     "autoload": {
-		"psr-4": {
-			"Zaver\\SDK\\": "src/"
-		}
-	},
-	"config": {
-		"classmap-authoritative": true
-	},
-	"require": {
-		"php": ">=7.4.0",
+        "psr-4": {
+            "Zaver\\SDK\\": "src/"
+        }
+    },
+    "config": {
+        "classmap-authoritative": true
+    },
+    "require": {
+        "php": ">=7.4.0",
         "guzzlehttp/guzzle": "^7.0"
-	}
+    }
 }
