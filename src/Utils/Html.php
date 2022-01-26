@@ -10,6 +10,8 @@ class Html {
 		$formatted = [];
 
 		foreach($attributes as $name => $value) {
+			if(!is_scalar($value)) continue;
+			
 			$formatted[] = sprintf('%s="%s"', self::sanitize($name), addslashes($value));
 		}
 
