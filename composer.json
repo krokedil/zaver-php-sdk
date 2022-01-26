@@ -1,0 +1,24 @@
+{
+    "name": "zaver/php-sdk",
+    "description": "PHP SDK for Zaver Checkout.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Webbmaffian",
+            "email": "info@webbmaffian.se"
+        }
+    ],
+    "autoload": {
+		"psr-4": {
+			"Zaver\\SDK\\": "src/"
+		}
+	},
+	"config": {
+		"classmap-authoritative": true
+	},
+	"require": {
+		"php": ">=7.4.0",
+        "guzzlehttp/guzzle": "^7.0"
+	}
+}
