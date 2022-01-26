@@ -1,10 +1,11 @@
 <?php
-namespace Zaver\SDK;
+namespace Zaver\SDK\Checkout;
+use Zaver\SDK\Utils\DataObject;
 
 /**
  * The Payment Creation Request contains the necessary information to create a payment.
  */
-class PaymentCreationRequest extends Utils\DataObject {
+class PaymentCreationRequest extends DataObject {
 	
 	/**
 	 * Required. A short name/description of the payment.

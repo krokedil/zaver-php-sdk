@@ -1,12 +1,16 @@
 <?php
-namespace Zaver\SDK;
+namespace Zaver\SDK\Checkout;
+use Zaver\SDK\Config\Endpoint;
+use Zaver\SDK\Config\PaymentStatus;
+use Zaver\SDK\Utils\Error;
+use Zaver\SDK\Utils\DataObject;
+use Zaver\SDK\Utils\Html;
 use DateTime;
-use Zaver\SDK\Exceptions\Error;
 
 /**
  * Contains the current status of the payment. Returned by way of callback, or by calling the `GET` endpoint.
  */
-class PaymentStatusResponse extends Utils\DataObject {
+class PaymentStatusResponse extends DataObject {
 
 	/**
 	 * 	The token used to start the in-page checkout
@@ -69,12 +73,12 @@ class PaymentStatusResponse extends Utils\DataObject {
 	}
 
 	public function getHtmlSnippet(array $attributes = []): string {
-		if($this->getPaymentStatus() !== Config\PaymentStatus::CREATED) {
+		if($this->getPaymentStatus() !== PaymentStatus::CREATED) {
 			throw new Error('Payment is not in CREATED state');
 		}
 
-		return Utils\Html::getTag('script', false, [
-			'src' => ($this->isTest() ? Config\Endpoint::TEST_SCRIPT : Config\Endpoint::PRODUCTION_SCRIPT),
+		return Html::getTag('script', false, [
+			'src' => ($this->isTest() ? Endpoint::TEST_SCRIPT : Endpoint::PRODUCTION_SCRIPT),
 			'id' => 'zco-loader',
 			'zco-token' => $this->getToken(),
 			...$attributes

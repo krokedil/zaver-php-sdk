@@ -1,5 +1,5 @@
 <?php
-namespace Zaver\SDK\Exceptions;
+namespace Zaver\SDK\Utils;
 use Exception;
 use Throwable;
 

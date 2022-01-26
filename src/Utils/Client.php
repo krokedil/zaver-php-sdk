@@ -1,11 +1,9 @@
 <?php
 namespace Zaver\SDK\Utils;
-
 use Exception;
 use GuzzleHttp;
 use GuzzleHttp\Exception\ClientException;
 use Psr\Http\Message\ResponseInterface;
-use Zaver\SDK\Exceptions\Error;
 
 class Client {
 	private $client = null;

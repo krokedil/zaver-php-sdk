@@ -1,10 +1,11 @@
 <?php
-namespace Zaver\SDK;
+namespace Zaver\SDK\Checkout;
+use Zaver\SDK\Utils\DataObject;
 
 /**
  * The merchant url object contains urls relevant to the checkout process.
  */
-class MerchantUrls extends Utils\DataObject {
+class MerchantUrls extends DataObject {
 	/**
 	 * URL for the merchant callback. Updates on the order will be sent to this URL as they occur.
 	 */

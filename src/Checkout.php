@@ -1,7 +1,9 @@
 <?php
 namespace Zaver\SDK;
+use Zaver\SDK\Checkout\PaymentCreationRequest;
+use Zaver\SDK\Checkout\PaymentStatusResponse;
+use Zaver\SDK\Utils\Error;
 use Exception;
-use Zaver\SDK\Exceptions\Error;
 
 class Checkout {
 	protected $client = null;
