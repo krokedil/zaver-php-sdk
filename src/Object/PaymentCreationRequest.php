@@ -1,5 +1,5 @@
 <?php
-namespace Zaver\SDK\Checkout;
+namespace Zaver\SDK\Object;
 use Zaver\SDK\Utils\DataObject;
 
 /**

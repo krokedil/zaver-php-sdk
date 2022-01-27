@@ -1,20 +1,12 @@
 <?php
 namespace Zaver\SDK;
-use Zaver\SDK\Checkout\PaymentCreationRequest;
-use Zaver\SDK\Checkout\PaymentStatusResponse;
+use Zaver\SDK\Object\PaymentCreationRequest;
+use Zaver\SDK\Object\PaymentStatusResponse;
+use Zaver\SDK\Utils\Base;
 use Zaver\SDK\Utils\Error;
 use Exception;
 
-class Checkout {
-	protected $client = null;
-	protected $callbackKey = null;
-	protected $test = false;
-
-	public function __construct(string $apiKey, ?string $callbackKey = null, bool $test = false) {
-		$this->client = new Utils\Client(($test ? Config\Endpoint::TEST : Config\Endpoint::PRODUCTION), $apiKey);
-		$this->callbackKey = $callbackKey;
-		$this->test = $test;
-	}
+class Checkout extends Base {
 
 	/**
 	 * Create a payment using a `PaymentCreationRequest` as the message body. In return, you get a `PaymentStatusResponse`.
@@ -32,8 +24,8 @@ class Checkout {
 		return new PaymentStatusResponse($response);
 	}
 
-	public function receiveCallback(): PaymentStatusResponse {
-		if(!is_null($this->callbackKey) && $this->callbackKey !== self::getAuthorizationKey()) {
+	public function receiveCallback(?string $callbackKey = null): PaymentStatusResponse {
+		if(!is_null($callbackKey) && $callbackKey !== self::getAuthorizationKey()) {
 			throw new Error('Invalid callback key');
 		}
 

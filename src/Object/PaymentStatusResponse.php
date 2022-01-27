@@ -1,5 +1,5 @@
 <?php
-namespace Zaver\SDK\Checkout;
+namespace Zaver\SDK\Object;
 use Zaver\SDK\Config\Endpoint;
 use Zaver\SDK\Config\PaymentStatus;
 use Zaver\SDK\Utils\Error;
@@ -13,7 +13,7 @@ use DateTime;
 class PaymentStatusResponse extends DataObject {
 
 	/**
-	 * 	The token used to start the in-page checkout
+	 * The token used to start the in-page checkout
 	 */
 	public function getToken(): string {
 		return $this->data['token'] ?? '';
@@ -23,7 +23,7 @@ class PaymentStatusResponse extends DataObject {
 	 * Expiry time of the payment.
 	 */
 	public function getValidUntil(): ?DateTime {
-		return (isset($this->data['validUntil']) ? new DateTime() : null);
+		return (isset($this->data['validUntil']) ? new DateTime($this->data['validUntil']) : null);
 	}
 
 	/**
