@@ -54,7 +54,12 @@ class Client {
 		return $this->request('DELETE', $uri);
 	}
 
-	private function request(string $method, string $uri, ?array $body = null): array {
+	/**
+	 * @param string $method HTTP method
+	 * @param string $uri URI where the request will be sent
+	 * @param array|JsonSerializable $body Body of the request
+	 */
+	private function request(string $method, string $uri, $body = null): array {
 		try {
 			$options = [];
 
