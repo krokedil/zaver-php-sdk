@@ -12,4 +12,8 @@ abstract class Base {
 		$this->client = new Client(($test ? Endpoint::TEST : Endpoint::PRODUCTION), $apiKey);
 		$this->test = $test;
 	}
+
+	public function isTest(): bool {
+		return $this->test;
+	}
 }

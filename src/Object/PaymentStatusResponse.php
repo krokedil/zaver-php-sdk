@@ -1,10 +1,6 @@
 <?php
 namespace Zaver\SDK\Object;
-use Zaver\SDK\Config\Endpoint;
-use Zaver\SDK\Config\PaymentStatus;
-use Zaver\SDK\Utils\Error;
 use Zaver\SDK\Utils\DataObject;
-use Zaver\SDK\Utils\Html;
 use DateTime;
 
 /**
@@ -66,22 +62,5 @@ class PaymentStatusResponse extends DataObject {
 	 */
 	public function getMerchantCustomizations(): array {
 		return $this->data['merchantCustomizations'] ?? [];
-	}
-
-	public function isTest(): bool {
-		return !empty($this->data['test']);
-	}
-
-	public function getHtmlSnippet(array $attributes = []): string {
-		if($this->getPaymentStatus() !== PaymentStatus::CREATED) {
-			throw new Error('Payment is not in CREATED state');
-		}
-
-		return Html::getTag('script', false, [
-			'src' => ($this->isTest() ? Endpoint::TEST_SCRIPT : Endpoint::PRODUCTION_SCRIPT),
-			'id' => 'zco-loader',
-			'zco-token' => $this->getToken(),
-			...$attributes
-		]);
 	}
 }

@@ -5,6 +5,10 @@ use JsonSerializable;
 abstract class DataObject implements JsonSerializable {
 	protected $data = [];
 
+	static public function create(array $data = []): self {
+		return new self($data);
+	}
+
 	public function __construct(array $data = []) {
 		$this->data = $data;
 	}

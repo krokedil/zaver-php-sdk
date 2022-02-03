@@ -1,9 +1,12 @@
 <?php
 namespace Zaver\SDK;
+use Zaver\SDK\Config\Endpoint;
 use Zaver\SDK\Object\PaymentCreationRequest;
 use Zaver\SDK\Object\PaymentStatusResponse;
 use Zaver\SDK\Utils\Base;
 use Zaver\SDK\Utils\Error;
+use Zaver\SDK\Utils\Html;
+use Zaver\SDK\Utils\Helper;
 use Exception;
 
 class Checkout extends Base {
@@ -13,7 +16,6 @@ class Checkout extends Base {
 	 */
 	public function createPayment(PaymentCreationRequest $request): PaymentStatusResponse {
 		$response = $this->client->post('/payments/checkout/v1', $request);
-		$response['test'] = $this->test;
 
 		return new PaymentStatusResponse($response);
 	}
@@ -25,7 +27,7 @@ class Checkout extends Base {
 	}
 
 	public function receiveCallback(?string $callbackKey = null): PaymentStatusResponse {
-		if(!is_null($callbackKey) && $callbackKey !== self::getAuthorizationKey()) {
+		if(!is_null($callbackKey) && $callbackKey !== Helper::getAuthorizationKey()) {
 			throw new Error('Invalid callback key');
 		}
 
@@ -39,22 +41,22 @@ class Checkout extends Base {
 		return new PaymentStatusResponse($data);
 	}
 
-	static protected function getAuthorizationKey(): ?string {
-		if(isset($_SERVER['HTTP_AUTHORIZATION'])) {
-			$auth = explode(' ', $_SERVER['HTTP_AUTHORIZATION']);
-
-			return end($auth);
+	/**
+	 * @param PaymentStatusResponse|string $token
+	 */
+	public function getHtmlSnippet($token, array $attributes = []): string {
+		if($token instanceof PaymentStatusResponse) {
+			$token = $token->getToken();
 		}
-		elseif(function_exists('getallheaders')) {
-			foreach(getallheaders() as $key => $value) {
-				if(strtolower($key) === 'authorization') {
-					$auth = explode(' ', $value);
-
-					return end($auth);
-				}
-			}
+		elseif(!is_string($token)) {
+			throw new Error('Expected token string');
 		}
 
-		return null;
+		return Html::getTag('script', false, [
+			'src' => ($this->isTest() ? Endpoint::TEST_SCRIPT : Endpoint::PRODUCTION_SCRIPT),
+			'id' => 'zco-loader',
+			'zco-token' => $token,
+			...$attributes
+		]);
 	}
 }
