@@ -5,6 +5,9 @@ use JsonSerializable;
 abstract class DataObject implements JsonSerializable {
 	protected $data = [];
 
+	/**
+	 * @return static
+	 */
 	static public function create(array $data = []): self {
 		return new static($data);
 	}
