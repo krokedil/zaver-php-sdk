@@ -27,11 +27,15 @@ class Checkout extends Base {
 	}
 
 	public function receiveCallback(?string $callbackKey = null): PaymentStatusResponse {
-		if(!is_null($callbackKey) && $callbackKey !== Helper::getAuthorizationKey()) {
+		if(!is_null($callbackKey) && !hash_equals($callbackKey, Helper::getAuthorizationKey())) {
 			throw new Error('Invalid callback key');
 		}
 
 		try {
+			if($_SERVER['HTTP_METHOD'] !== 'POST') {
+				throw new Error('Invalid HTTP method');
+			}
+			
 			$data = json_decode(file_get_contents('php://input'), true, 10, JSON_THROW_ON_ERROR);
 		}
 		catch(Exception $e) {
