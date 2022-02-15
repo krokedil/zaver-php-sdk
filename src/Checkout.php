@@ -56,11 +56,10 @@ class Checkout extends Base {
 			throw new Error('Expected token string');
 		}
 
-		return Html::getTag('script', false, [
+		return Html::getTag('script', false, array_merge([
 			'src' => ($this->isTest() ? Endpoint::TEST_SCRIPT : Endpoint::PRODUCTION_SCRIPT),
 			'id' => 'zco-loader',
-			'zco-token' => $token,
-			...$attributes
-		]);
+			'zco-token' => $token
+		], $attributes));
 	}
 }
