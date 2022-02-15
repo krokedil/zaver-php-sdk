@@ -27,8 +27,8 @@ class Checkout extends Base {
 		return new PaymentStatusResponse($response);
 	}
 
-	public function updatePayment(PaymentUpdateRequest $request): PaymentStatusResponse {
-		$response = $this->client->patch('/payments/checkout/v1', $request);
+	public function updatePayment(string $paymentId, PaymentUpdateRequest $request): PaymentStatusResponse {
+		$response = $this->client->patch('/payments/checkout/v1/' . $paymentId, $request);
 
 		return new PaymentStatusResponse($response);
 	}
