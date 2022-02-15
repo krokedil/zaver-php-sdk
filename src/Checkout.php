@@ -2,6 +2,7 @@
 namespace Zaver\SDK;
 use Zaver\SDK\Config\Endpoint;
 use Zaver\SDK\Object\PaymentCreationRequest;
+use Zaver\SDK\Object\PaymentUpdateRequest;
 use Zaver\SDK\Object\PaymentStatusResponse;
 use Zaver\SDK\Utils\Base;
 use Zaver\SDK\Utils\Error;
@@ -22,6 +23,12 @@ class Checkout extends Base {
 
 	public function getPaymentStatus(string $paymentId): PaymentStatusResponse {
 		$response = $this->client->get('/payments/checkout/v1/' . $paymentId);
+
+		return new PaymentStatusResponse($response);
+	}
+
+	public function updatePayment(PaymentUpdateRequest $request): PaymentStatusResponse {
+		$response = $this->client->patch('/payments/checkout/v1', $request);
 
 		return new PaymentStatusResponse($response);
 	}

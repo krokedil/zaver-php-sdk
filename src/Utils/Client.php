@@ -43,8 +43,8 @@ class Client {
 	 * @param string $uri URI of the request
 	 * @param array|JsonSerializable $body Body of the request
 	 */
-	public function put(string $uri, $body): array {
-		return $this->request('PUT', $uri, $body);
+	public function patch(string $uri, $body): array {
+		return $this->request('PATCH', $uri, $body);
 	}
 
 	/**
