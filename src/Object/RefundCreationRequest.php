@@ -74,7 +74,7 @@ class RefundCreationRequest extends DataObject {
 	/**
 	 * A reference that the merchant can set to track the Refund in their system. Must be unique: no two Refunds may use the same reference.
 	 */
-	public function merchantReference(string $merchantReference): self {
+	public function setMerchantReference(string $merchantReference): self {
 		$this->data['merchantReference'] = $merchantReference;
 
 		return $this;
@@ -83,7 +83,7 @@ class RefundCreationRequest extends DataObject {
 	/**
 	 * Metadata on the refund in the form of key/value pairs.
 	 */
-	public function merchantMetadata(array $metadata): self {
+	public function setMerchantMetadata(array $metadata): self {
 		$this->data['metadata'] = $metadata;
 
 		return $this;
@@ -92,7 +92,7 @@ class RefundCreationRequest extends DataObject {
 	/**
 	 * A callback/webhook URL where the merchant will be notified of updates to this refund. This must be a https:// URL.
 	 */
-	public function callbackUrl(string $callbackUrl): self {
+	public function setCallbackUrl(string $callbackUrl): self {
 		$this->data['callbackUrl'] = $callbackUrl;
 
 		return $this;
