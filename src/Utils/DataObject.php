@@ -26,19 +26,31 @@ abstract class DataObject implements JsonSerializable, ArrayAccess {
 		}
 	}
 
+	/**
+	 * @ignore
+	 */
 	public function jsonSerialize() {
         return $this->data;
     }
 
-	public function offsetExists(mixed $offset): bool {
+	/**
+	 * @ignore
+	 */
+	public function offsetExists($offset): bool {
 		return isset($this->data[$offset]);
 	}
 
-	public function offsetGet(mixed $offset) {
+	/**
+	 * @ignore
+	 */
+	public function offsetGet($offset) {
 		return $this->data[$offset] ?? null;
 	}
 
-	public function offsetSet(mixed $offset, mixed $value): void {
+	/**
+	 * @ignore
+	 */
+	public function offsetSet($offset, $value): void {
 		$method = 'set' . ucfirst($offset);
 
 		if(method_exists($this, $method)) {
@@ -49,7 +61,10 @@ abstract class DataObject implements JsonSerializable, ArrayAccess {
 		}
 	}
 
-	public function offsetUnset(mixed $offset): void {
+	/**
+	 * @ignore
+	 */
+	public function offsetUnset($offset): void {
 		unset($this->data[$offset]);
 	}
 }
