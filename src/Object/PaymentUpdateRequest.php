@@ -19,8 +19,8 @@ class PaymentUpdateRequest extends DataObject {
 	/**
 	 * Desired new status. Most notably `CANCELLED` - used to cancel payments.
 	 */
-	public function setStatus(string $status): self {
-		$this->data['status'] = $status;
+	public function setPaymentStatus(string $paymentStatus): self {
+		$this->data['paymentStatus'] = $paymentStatus;
 
 		return $this;
 	}
