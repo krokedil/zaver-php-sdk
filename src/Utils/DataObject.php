@@ -1,8 +1,9 @@
 <?php
 namespace Zaver\SDK\Utils;
 use JsonSerializable;
+use ArrayAccess;
 
-abstract class DataObject implements JsonSerializable {
+abstract class DataObject implements JsonSerializable, ArrayAccess {
 	protected $data = [];
 
 	/**
@@ -28,4 +29,27 @@ abstract class DataObject implements JsonSerializable {
 	public function jsonSerialize() {
         return $this->data;
     }
+
+	public function offsetExists(mixed $offset): bool {
+		return isset($this->data[$offset]);
+	}
+
+	public function offsetGet(mixed $offset) {
+		return $this->data[$offset] ?? null;
+	}
+
+	public function offsetSet(mixed $offset, mixed $value): void {
+		$method = 'set' . ucfirst($offset);
+
+		if(method_exists($this, $method)) {
+			$this->$method($value);
+		}
+		else {
+			$this->data[$offset] = $value;
+		}
+	}
+
+	public function offsetUnset(mixed $offset): void {
+		unset($this->data[$offset]);
+	}
 }
