@@ -1,7 +1,7 @@
 <?php
 namespace Zaver\SDK\Config;
 
-class PaymentStatus {
+class RefundStatus {
 	/** This status is set when a refund is created. The refund needs to be approved by the merchant before it is being processed. */
 	const PENDING_MERCHANT_APPROVAL = 'PENDING_MERCHANT_APPROVAL';
 
