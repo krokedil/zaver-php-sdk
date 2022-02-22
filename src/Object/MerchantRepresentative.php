@@ -14,4 +14,11 @@ class MerchantRepresentative extends DataObject {
 
 		return $this;
 	}
+
+	/**
+	 * The username of the representative in Zaver for Business. This is always an e-mail address. E.g. `sara@example.com`
+	 */
+	public function getUsername(): string {
+		return $this->data['username'] ?? '';
+	}
 }
