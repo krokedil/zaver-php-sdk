@@ -97,4 +97,14 @@ class RefundCreationRequest extends DataObject {
 
 		return $this;
 	}
+
+	public function addLineItem(RefundedLineItem $lineItem): self {
+		if(!isset($this->data['lineItems'])) {
+			$this->data['lineItems'] = [];
+		}
+
+		$this->data['lineItems'][] = $lineItem;
+
+		return $this;
+	}
 }
