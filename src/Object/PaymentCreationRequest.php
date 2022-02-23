@@ -89,4 +89,17 @@ class PaymentCreationRequest extends DataObject {
 
 		return $this;
 	}
+
+	/**
+	 * List of line items.
+	 */
+	public function addLineItem(LineItem $lineItem): self {
+		if(!isset($this->data['lineItems'])) {
+			$this->data['lineItems'] = [];
+		}
+
+		$this->data['lineItems'][] = $lineItem;
+
+		return $this;
+	}
 }

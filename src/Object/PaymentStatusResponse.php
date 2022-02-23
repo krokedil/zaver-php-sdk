@@ -63,4 +63,16 @@ class PaymentStatusResponse extends DataObject {
 	public function getMerchantCustomizations(): array {
 		return $this->data['merchantCustomizations'] ?? [];
 	}
+
+	/**
+	 * List of line items from the Payment Request.
+	 * @return LineItem[] List of line items
+	 */
+	public function getLineItems(): array {
+		if(empty($this->data['lineItems'])) {
+			return [];
+		}
+
+		return array_map(fn($item) => ($item instanceof LineItem ? $item : LineItem::create($item)), $this->data['lineItems']);
+	}
 }
