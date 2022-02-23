@@ -17,7 +17,7 @@ class PaymentCreationRequest extends DataObject {
 	}
 
 	/**
-	 * Required. A longer description of the payment.
+	 * A longer description of the payment.
 	 */
 	public function setDescription(string $description): self {
 		$this->data['description'] = $description;
@@ -39,6 +39,25 @@ class PaymentCreationRequest extends DataObject {
 	 */
 	public function setCurrency(string $currency): self {
 		$this->data['currency'] = $currency;
+
+		return $this;
+	}
+
+	/**
+	 * Required. The market(/country) for this payment request. Available markets depend on the merchant's contract with Zaver.
+	 */
+	public function setMarket(string $market): self {
+		$this->data['market'] = $market;
+
+		return $this;
+	}
+
+	/**
+	 * The language(/locale) for this payment request. Must match allowed languages for the selected Market. If not provided
+	 * then the default language for this merchant and market will be used.
+	 */
+	public function setLanguage(string $language): self {
+		$this->data['language'] = $language;
 
 		return $this;
 	}
