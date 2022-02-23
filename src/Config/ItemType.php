@@ -1,8 +1,8 @@
 <?php
 namespace Zaver\SDK\Config;
 
-class PaymentStatus {
-	
+class ItemType {
+
 	/** A physical product that needs to be shipped/retrieved. */
 	const PHYSICAL = 'PHYSICAL';
 
