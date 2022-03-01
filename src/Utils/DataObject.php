@@ -15,6 +15,8 @@ abstract class DataObject implements JsonSerializable, ArrayAccess {
 
 	public function __construct(array $data = []) {
 		foreach($data as $key => $value) {
+			if(is_null($value)) continue;
+
 			$method = 'set' . ucfirst($key);
 
 			if(method_exists($this, $method)) {
