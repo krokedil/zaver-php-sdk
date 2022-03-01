@@ -4,15 +4,21 @@ use Zaver\SDK\Utils\DataObject;
 
 /**
  * Line item for `PaymentCreationRequest`
+ * 
+ * @method string getId()                A unique id for the line item. Set by Zaver.
+ * @method string getName()              Name of the item being sold.
+ * @method int    getQuantity()          Total number of units being paid.
+ * @method float  getUnitPrice()         Price per unit being paid, including tax.
+ * @method float  getTotalAmount()       Total amount of line item including tax. Must satisfy `totalAmount = unitPrice x quantity`.
+ * @method float  getTaxRatePercent()    Tax percentage for a line item - e.g. `25.0`.
+ * @method float  getTaxAmount()         Total amount of tax (e.g. VAT) included in the line item.
+ * @method string getDescription()       Longer description of the line item.
+ * @method string getItemType()          One of: `PHYSICAL`, `DIGITAL`, `SERVICE`, `SHIPPING`, `FEE`, `DISCOUNT`
+ * @method string getMerchantReference() Your reference for a line item, e.g. a SKU.
+ * @method array  getMerchantMetadata()  An associative array of merchant-defined key-value pairs.
+ * @method string getQuantityUnit()      The unit in which quantity is measured - e.g. pcs, kgs.
  */
 class LineItem extends DataObject {
-	
-	/**
-	 * Read-only. A unique id for the line item. Set by Zaver.
-	 */
-	public function getId(): string {
-		return $this->data['id'] ?? '';
-	}
 
 	/**
 	 * Required. Name of the item being sold.

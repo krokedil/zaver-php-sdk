@@ -4,6 +4,9 @@ use Zaver\SDK\Utils\DataObject;
 
 /**
  * The merchant url object contains urls relevant to the checkout process.
+ * 
+ * @method string getCallbackUrl() URL for the merchant callback. Updates on the order will be sent to this URL as they occur.
+ * @method string getSuccessUrl()  Only for the Payment API. URL for the merchant success page. If included, customers will be redirected here after payment success.
  */
 class MerchantUrls extends DataObject {
 	/**

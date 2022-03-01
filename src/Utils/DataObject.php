@@ -26,6 +26,14 @@ abstract class DataObject implements JsonSerializable, ArrayAccess {
 		}
 	}
 
+	public function __call($name, $arguments) {
+		if(strncmp($name, 'get', 3) === 0) {
+			$key = strtolower($name[0]) . substr($name, 4);
+
+			return ($this->data[$key] ?? null);
+		}
+	}
+
 	/**
 	 * @ignore
 	 */

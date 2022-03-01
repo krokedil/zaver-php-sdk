@@ -114,9 +114,21 @@ class RefundResponse extends DataObject {
 	}
 
 	/**
-	 * The ID of the Refund. This is used when retrieving, approving, and cancelling the Refund.
+	 * Urls relevant to the refund.
 	 */
-	public function getCallbackUrl(): string {
-		return $this->data['callbackUrl'] ?? '';
+	public function getMerchantUrls(): ?MerchantUrls {
+		return (empty($this->data['merchantUrls']) ? null : MerchantUrls::create($this->data['merchantUrls']));
+	}
+
+	/**
+	 * List of line items being refunded
+	 * @return RefundLineItem[] List of line items
+	 */
+	public function getLineItems(): array {
+		if(empty($this->data['lineItems'])) {
+			return [];
+		}
+
+		return array_map(fn($item) => ($item instanceof RefundLineItem ? $item : RefundLineItem::create($item)), $this->data['lineItems']);
 	}
 }

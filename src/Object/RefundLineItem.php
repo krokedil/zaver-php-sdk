@@ -4,8 +4,16 @@ use Zaver\SDK\Utils\DataObject;
 
 /**
  * The Payment Creation Request contains the necessary information to create a payment.
+ * 
+ * @method string getLineItemId()           The id of the line item being refunded.
+ * @method float  getRefundTotalAmount()    Total refunded amount of the line item, including tax (e.g. VAT).
+ * @method float  getRefundTaxAmount()      Total amount of tax (e.g. VAT) of the refunded line item.
+ * @method float  getRefundTaxRatePercent() Tax percentage for the refunded line item, in percent (e.g. 25)
+ * @method int    getRefundQuantity()       The number of units refunded.
+ * @method float  getRefundUnitPrice()      The refunded amount per unit, including tax (e.g. VAT).
+ * @method string getRefundDescription()    A brief description of the refunded line item.
  */
-class RefundedLineItem extends DataObject {
+class RefundLineItem extends DataObject {
 	
 	/**
 	 * Required. The id of the line item being refunded.
@@ -19,8 +27,8 @@ class RefundedLineItem extends DataObject {
 	/**
 	 * Required. Total refunded amount of the line item, including tax (e.g. VAT).
 	 */
-	public function setRefundAmount(float $refundAmount): self {
-		$this->data['refundAmount'] = $refundAmount;
+	public function setRefundTotalAmount(float $refundTotalAmount): self {
+		$this->data['refundTotalAmount'] = $refundTotalAmount;
 
 		return $this;
 	}
@@ -55,8 +63,8 @@ class RefundedLineItem extends DataObject {
 	/**
 	 * Required. The refunded amount per unit, including tax (e.g. VAT).
 	 */
-	public function setUnitRefundAmount(float $unitRefundAmount): self {
-		$this->data['unitRefundAmount'] = $unitRefundAmount;
+	public function setRefundUnitPrice(float $refundUnitPrice): self {
+		$this->data['refundUnitPrice'] = $refundUnitPrice;
 
 		return $this;
 	}
@@ -64,8 +72,8 @@ class RefundedLineItem extends DataObject {
 	/**
 	 * A brief description of the refunded line item.
 	 */
-	public function setDescription(string $description): self {
-		$this->data['description'] = $description;
+	public function setRefundDescription(string $refundDescription): self {
+		$this->data['refundDescription'] = $refundDescription;
 
 		return $this;
 	}

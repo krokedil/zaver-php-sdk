@@ -4,6 +4,17 @@ use Zaver\SDK\Utils\DataObject;
 
 /**
  * The Payment Creation Request contains the necessary information to create a payment.
+ * 
+ * @method string         getTitle()                    A short name/description of the payment.
+ * @method string         getDescription()              A longer description of the payment.
+ * @method float          getAmount()                   The Payment amount in the format 100 or the format 100.00.
+ * @method string         getCurrency()                 The ISO currency code of the Payment. Currently, only "SEK" is supported.
+ * @method string         getMarket()                   The market(/country) for the payment request. Available markets depend on the merchant's contract with Zaver.
+ * @method string         getLanguage()                 The language(/locale) for the payment request.
+ * @method string         getMerchantPaymentReference() ID string, e.g. order reference.
+ * @method array          getMerchantMetadata()         An associative array of merchant-defined key-value pairs.
+ * @method MerchantUrls[] getMerchantUrls()             URLs relevant to the payment.
+ * @method LineItem[]     getLineItems()                List of line items.
  */
 class PaymentCreationRequest extends DataObject {
 	
@@ -91,7 +102,7 @@ class PaymentCreationRequest extends DataObject {
 	}
 
 	/**
-	 * List of line items.
+	 * Add to the list of line items.
 	 */
 	public function addLineItem(LineItem $lineItem): self {
 		if(!isset($this->data['lineItems'])) {

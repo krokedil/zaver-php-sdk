@@ -4,6 +4,18 @@ use Zaver\SDK\Utils\DataObject;
 
 /**
  * The Payment Creation Request contains the necessary information to create a payment.
+ * 
+ * @method string                 getDescription()                A description of the refund.
+ * @method string                 getPaymentId()                  The id of the payment being refunded.
+ * @method string                 getInvoiceReference()           The invoice reference of the payment being refunded.
+ * @method float                  getRefundAmount()               The amount to be refunded. Decimal amount are specified with dot (.) as separator, e.g. 175400.50.
+ * @method float                  getRefundTaxAmount()            The total amount of tax for the refund. Could be required for Fixed amount refunds. See Create a Fixed amount refund for details on when this is required.
+ * @method float                  getRefundTaxPercent()           The tax percent of the refund. Could be required for Fixed amount refunds. See Create a Fixed amount refund for details on when this is required.
+ * @method MerchantRepresentative getInitializingRepresentative() Merchant representative that is creating the Refund.
+ * @method string                 getMerchantReference()          A reference that the merchant can set to track the Refund in their system.
+ * @method array                  getMerchantMetadata()           Metadata on the refund in the form of key/value pairs.
+ * @method MerchantUrls           getMerchantUrls()               URLs relevant to the refund.
+ * @method RefundLineItem[]       getLineItems()                  List of line items being refunded.
  */
 class RefundCreationRequest extends DataObject {
 
@@ -84,21 +96,24 @@ class RefundCreationRequest extends DataObject {
 	 * Metadata on the refund in the form of key/value pairs.
 	 */
 	public function setMerchantMetadata(array $metadata): self {
-		$this->data['metadata'] = $metadata;
+		$this->data['merchantMetadata'] = $metadata;
 
 		return $this;
 	}
 
 	/**
-	 * A callback/webhook URL where the merchant will be notified of updates to this refund. This must be a https:// URL.
+	 * URLs relevant to the refund.
 	 */
-	public function setCallbackUrl(string $callbackUrl): self {
-		$this->data['callbackUrl'] = $callbackUrl;
+	public function setMerchantUrls(MerchantUrls $merchantUrls): self {
+		$this->data['merchantUrls'] = $merchantUrls;
 
 		return $this;
 	}
 
-	public function addLineItem(RefundedLineItem $lineItem): self {
+	/**
+	 * Add to the list of line items to be refunded.
+	 */
+	public function addLineItem(RefundLineItem $lineItem): self {
 		if(!isset($this->data['lineItems'])) {
 			$this->data['lineItems'] = [];
 		}
