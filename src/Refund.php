@@ -39,7 +39,7 @@ class Refund extends Base {
 		}
 
 		try {
-			if($_SERVER['HTTP_METHOD'] !== 'POST') {
+			if($_SERVER['REQUEST_METHOD'] !== 'POST') {
 				throw new Error('Invalid HTTP method');
 			}
 			
