@@ -37,37 +37,37 @@ const IS_TEST_ENVIRONMENT = true;
 $api = new Checkout(API_KEY, IS_TEST_ENVIRONMENT);
 
 $item = LineItem::create()
-	->setName('Fancy pants')
-	->setMerchantReference('FANCY-123')
-	->setQuantity(2)
-	->setUnitPrice(1000)
-	->setTotalAmount(2000)
-	->setTaxRatePercent(25)
-	->setTaxAmount(400)
-	->setItemType(ItemType::PHYSICAL);
+    ->setName('Fancy pants')
+    ->setMerchantReference('FANCY-123')
+    ->setQuantity(2)
+    ->setUnitPrice(1000)
+    ->setTotalAmount(2000)
+    ->setTaxRatePercent(25)
+    ->setTaxAmount(400)
+    ->setItemType(ItemType::PHYSICAL);
 
 $shipping = LineItem::create()
-	->setName('DHL')
-	->setQuantity(1)
-	->setUnitPrice(100)
-	->setTotalAmount(100)
-	->setTaxRatePercent(25)
-	->setTaxAmount(20)
-	->setItemType(ItemType::SHIPPING);
+    ->setName('DHL')
+    ->setQuantity(1)
+    ->setUnitPrice(100)
+    ->setTotalAmount(100)
+    ->setTaxRatePercent(25)
+    ->setTaxAmount(20)
+    ->setItemType(ItemType::SHIPPING);
 
 $urls = MerchantUrls::create()
-	->setSuccessUrl('https://example.com/thank-you')
-	->setCallbackUrl('https://example.com/api/payment-callback');
+    ->setSuccessUrl('https://example.com/thank-you')
+    ->setCallbackUrl('https://example.com/api/payment-callback');
 
 $request = PaymentCreationRequest::create()
-	->setMerchantPaymentReference('123456')
-	->setAmount(2100)
-	->setCurrency('SEK')
-	->setMarket('SE')
-	->setTitle('My fancy payment')
-	->setMerchantUrls($urls)
-	->addLineItem($item)
-	->addLineItem($shipping);
+    ->setMerchantPaymentReference('123456')
+    ->setAmount(2100)
+    ->setCurrency('SEK')
+    ->setMarket('SE')
+    ->setTitle('My fancy payment')
+    ->setMerchantUrls($urls)
+    ->addLineItem($item)
+    ->addLineItem($shipping);
 
 $payment = $api->createPayment($request);
 
@@ -111,31 +111,31 @@ $api = new Refund(API_KEY, IS_TEST_ENVIRONMENT);
 $payment = $api->getPaymentStatus('463d6d10-4c0f-424b-b804-8e95114864dd');
 
 $urls = MerchantUrls::create()
-	->setCallbackUrl('https://example.com/api/refund-callback');
+    ->setCallbackUrl('https://example.com/api/refund-callback');
 
 $request = RefundCreationRequest::create()
-	->setPaymentId($payment->getPaymentId())
-	->setRefundAmount(abs($payment->getAmount()))
-	->setDescription('Mr Fancy Pants changed his mind')
-	->setMerchantUrls($urls);
+    ->setPaymentId($payment->getPaymentId())
+    ->setRefundAmount(abs($payment->getAmount()))
+    ->setDescription('Mr Fancy Pants changed his mind')
+    ->setMerchantUrls($urls);
 
 foreach($payment->getLineItems() as $paymentItem) {
-	$refundItem = RefundLineItem::create()
-		->setLineItemId($paymentItem->getId())
-		->setRefundTotalAmount($paymentItem->getTotalAmount())
-		->setRefundTaxAmount($paymentItem->getTaxAmount())
-		->setRefundTaxRatePercent($paymentItem->getTaxRatePercent())
-		->setRefundQuantity($paymentItem->getQuantity())
-		->setRefundUnitPrice($paymentItem->getUnitPrice());
-	
-	$request->addLineItem($refundItem);
+    $refundItem = RefundLineItem::create()
+        ->setLineItemId($paymentItem->getId())
+        ->setRefundTotalAmount($paymentItem->getTotalAmount())
+        ->setRefundTaxAmount($paymentItem->getTaxAmount())
+        ->setRefundTaxRatePercent($paymentItem->getTaxRatePercent())
+        ->setRefundQuantity($paymentItem->getQuantity())
+        ->setRefundUnitPrice($paymentItem->getUnitPrice());
+    
+    $request->addLineItem($refundItem);
 }
 
 $refund = $api->createRefund($request);
 
 echo $refund->getStatus();
 // Outputs: PENDING_MERCHANT_APPROVAL
-	
+    
 ```
 
 ### Receive refund callback (e.g. after refund approval)
