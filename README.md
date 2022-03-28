@@ -1,5 +1,5 @@
 # Zaver PHP SDK
-PHP SDK for Zaver Checkout.
+This is the officially supported PHP SDK for [Zaver Checkout](https://www.zaver.io/), developed as a Composer package by [The Web Mafia](https://www.webbmaffian.se/).
 
 ## Requirements
 - PHP 7.4+
@@ -11,8 +11,8 @@ PHP SDK for Zaver Checkout.
 composer require zaver/sdk
 ```
 
-## API documentation
-[https://api-docs.zaver.se/v-1-2-0/checkout.html](https://api-docs.zaver.se/v-1-2-0/checkout.html)
+## Usage
+All classes and methods are properly type-hinted with complementary PHPDoc - please see [the examples](#examples) on this page, and read [the API documentation](https://api-docs.zaver.se/v-1-2-0/checkout.html) for further details.
 
 ## Examples
 - [Initialize payment](#initialize-payment)

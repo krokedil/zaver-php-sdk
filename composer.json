@@ -1,14 +1,23 @@
 {
-    "name": "zaver/php-sdk",
+    "name": "zaver/sdk",
     "description": "PHP SDK for Zaver Checkout.",
     "type": "library",
+    "keywords": ["zaver", "checkout", "sdk", "payment", "refund", "credit", "card", "swish"],
+    "homepage": "https://github.com/zaver-io/zaver-php-sdk",
+    "readme": "README.md",
     "license": "MIT",
     "authors": [
         {
             "name": "Webbmaffian",
-            "email": "info@webbmaffian.se"
+            "email": "info@webbmaffian.se",
+            "homepage": "https://www.webbmaffian.se",
+            "role": "Developer"
         }
     ],
+    "support": {
+        "docs": "https://github.com/zaver-io/zaver-php-sdk",
+        "issues": "https://github.com/zaver-io/zaver-php-sdk/issues"
+    },
     "autoload": {
         "psr-4": {
             "Zaver\\SDK\\": "src/"
@@ -19,6 +28,7 @@
     },
     "require": {
         "php": ">=7.4.0",
+        "ext-json": "*",
         "guzzlehttp/guzzle": "^7.0"
     }
 }
