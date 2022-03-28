@@ -41,6 +41,16 @@ class Endpoint {
 	 */
 	const PAYMENT_NOT_FOUND = 'PAYMENT_NOT_FOUND';
 
+	/**
+	 * The supplied lineItemId does not match any line item connected to the payment being refunded.
+	 */
+	const LINE_ITEM_NOT_FOUND = 'LINE_ITEM_NOT_FOUND';
+
+	/**
+	 * Multiple occurances of a single unique lineItemId. Each lineItemId may not be refunded more than once in a single refund.
+	 */
+	const DUPLICATE_LINE_ITEM_ID = 'DUPLICATE_LINE_ITEM_ID';
+
 	/** 
 	 * The payment being refunded does not have the status `SETTLED`, and can therefore not be refunded.
 	 */
@@ -55,4 +65,15 @@ class Endpoint {
 	 * The requested refund amount is not allowed.
 	 */
 	const AMOUNT_INVALID = 'AMOUNT_INVALID';
+
+	/**
+	 * The bank account connected to Swish has insufficient funds to complete the refund. Please add funds to the bank account
+	 * and try again by creating a new refund.
+	 */
+	const INSUFFICIENT_FUNDS_SWISH = 'INSUFFICIENT_FUNDS_SWISH';
+
+	/**
+	 * The payment can not be refunded using Zaver. Please use a different alternative to refund the payment.
+	 */
+	const REFUND_NOT_POSSIBLE = 'REFUND_NOT_POSSIBLE';
 }

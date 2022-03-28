@@ -16,105 +16,106 @@ class RefundResponse extends DataObject {
 	}
 
 	/**
-	 * The ID of the Refund. This is used when retrieving, approving, and cancelling the Refund.
+	 * A description of the refund.
 	 */
 	public function getDescription(): string {
 		return $this->data['description'] ?? '';
 	}
 
 	/**
-	 * The ID of the Refund. This is used when retrieving, approving, and cancelling the Refund.
+	 * The ID of the payment being refunded.
 	 */
 	public function getPaymentId(): string {
 		return $this->data['paymentId'] ?? '';
 	}
 
 	/**
-	 * The ID of the Refund. This is used when retrieving, approving, and cancelling the Refund.
+	 * The invoice reference of the payment being refunded.
 	 */
 	public function getInvoiceReference(): string {
 		return $this->data['invoiceReference'] ?? '';
 	}
 
 	/**
-	 * The ID of the Refund. This is used when retrieving, approving, and cancelling the Refund.
+	 * The amount to be refunded. The amount needs to be less than or equal to the amount of the payment request being refunded.
 	 */
 	public function getRefundAmount(): float {
 		return (float)$this->data['refundAmount'] ?? 0;
 	}
 
 	/**
-	 * The ID of the Refund. This is used when retrieving, approving, and cancelling the Refund.
+	 * The ISO currency code of the Refund. Currently, only SEK is supported. This matches the currency of the payment that is refunded.
 	 */
 	public function getCurrency(): string {
 		return $this->data['currency'] ?? '';
 	}
 
 	/**
-	 * The ID of the Refund. This is used when retrieving, approving, and cancelling the Refund.
+	 * The total amount of tax for the refund.
 	 */
 	public function getRefundTaxAmount(): float {
 		return (float)$this->data['refundTaxAmount'] ?? 0;
 	}
 
 	/**
-	 * The ID of the Refund. This is used when retrieving, approving, and cancelling the Refund.
+	 * The tax percent of the refund.
 	 */
 	public function getRefundTaxRatePercent(): float {
 		return (float)$this->data['refundTaxRatePercent'] ?? 0;
 	}
 
 	/**
-	 * The ID of the Refund. This is used when retrieving, approving, and cancelling the Refund.
+	 * The status of the Refund.
 	 */
 	public function getStatus(): string {
 		return $this->data['status'] ?? '';
 	}
 
 	/**
-	 * The ID of the Refund. This is used when retrieving, approving, and cancelling the Refund.
+	 * An optional reference that the merchant can set to track the Refund in their system.
+	 * Must be unique: No two refunds may use the same reference.
 	 */
 	public function getMerchantReference(): string {
 		return $this->data['merchantReference'] ?? '';
 	}
 
 	/**
-	 * The ID of the Refund. This is used when retrieving, approving, and cancelling the Refund.
+	 * Metadata on the Refund in the form of key/value pairs.
 	 */
 	public function getMerchantMetadata(): array {
 		return (array)$this->data['merchantMetadata'] ?? [];
 	}
 
 	/**
-	 * The ID of the Refund. This is used when retrieving, approving, and cancelling the Refund.
+	 * Merchant representative that created the Refund.
 	 */
 	public function getInitializingRepresentative(): ?MerchantRepresentative {
 		return (!empty($this->data['initializingRepresentative']) ? new MerchantRepresentative($this->data['initializingRepresentative']) : null);
 	}
 
 	/**
-	 * The ID of the Refund. This is used when retrieving, approving, and cancelling the Refund.
+	 * Merchant representative that approved the Refund.
 	 */
 	public function getApprovingRepresentative(): ?MerchantRepresentative {
 		return (!empty($this->data['approvingRepresentative']) ? new MerchantRepresentative($this->data['approvingRepresentative']) : null);
 	}
 
 	/**
-	 * The ID of the Refund. This is used when retrieving, approving, and cancelling the Refund.
+	 * Merchant representative that cancelled the Refund.
 	 */
 	public function getCancellingRepresentative(): ?MerchantRepresentative {
 		return (!empty($this->data['cancellingRepresentative']) ? new MerchantRepresentative($this->data['cancellingRepresentative']) : null);
 	}
 
 	/**
-	 * The ID of the Refund. This is used when retrieving, approving, and cancelling the Refund.
+	 * When the the refund was last updated.
 	 */
 	public function getLastEvent(): ?DateTime {
 		return (isset($this->data['lastEvent']) ? new DateTime($this->data['lastEvent']) : null);
 	}
 
 	/**
-	 * Urls relevant to the refund.
+	 * URLs relevant to the refund.
 	 */
 	public function getMerchantUrls(): ?MerchantUrls {
 		return (empty($this->data['merchantUrls']) ? null : MerchantUrls::create($this->data['merchantUrls']));
