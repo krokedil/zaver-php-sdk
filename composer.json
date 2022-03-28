@@ -12,6 +12,12 @@
             "email": "info@webbmaffian.se",
             "homepage": "https://www.webbmaffian.se",
             "role": "Developer"
+        },
+        {
+            "name": "Zaver",
+            "email": "info@zaver.se",
+            "homepage": "https://www.zaver.io",
+            "role": "Owner"
         }
     ],
     "support": {
