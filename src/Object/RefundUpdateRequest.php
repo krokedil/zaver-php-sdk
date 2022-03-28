@@ -17,4 +17,8 @@ class RefundUpdateRequest extends DataObject {
 
 		return $this;
 	}
+
+	public function __toString(): string {
+		return $this->data['actingRepresentative'] ?? '';
+	}
 }
