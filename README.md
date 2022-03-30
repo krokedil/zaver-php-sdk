@@ -115,7 +115,7 @@ $urls = MerchantUrls::create()
 
 $request = RefundCreationRequest::create()
     ->setPaymentId($payment->getPaymentId())
-    ->setRefundAmount(abs($payment->getAmount()))
+    ->setRefundAmount($payment->getAmount())
     ->setDescription('Mr Fancy Pants changed his mind')
     ->setMerchantUrls($urls);
 
