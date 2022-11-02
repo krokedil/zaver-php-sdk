@@ -1,7 +1,7 @@
 <?php
 namespace Zaver\SDK\Config;
 
-class Endpoint {
+class ErrorCode {
 	/**
 	 * A parameter was set to an invalid value. Will return a message with the invalid parameter, and the received value.
 	 */
