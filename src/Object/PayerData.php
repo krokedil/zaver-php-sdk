@@ -73,7 +73,7 @@ class PayerData extends DataObject {
 	 * The billing address of the payer in question.
 	 */
     public function setBillingAddress(Address $address): self {
-		$this->data['address'] = $address;
+		$this->data['billingAddress'] = $address;
 
 		return $this;
 	}
@@ -82,7 +82,7 @@ class PayerData extends DataObject {
 	 * The shipping address of the payer in question.
 	 */
     public function setShippingAddress(Address $address): self {
-		$this->data['address'] = $address;
+		$this->data['shippingAddress'] = $address;
 
 		return $this;
 	}
