@@ -75,4 +75,23 @@ class PaymentStatusResponse extends DataObject {
 
 		return array_map(fn($item) => ($item instanceof LineItem ? $item : LineItem::create($item)), $this->data['lineItems']);
 	}
+
+	/**
+	 * The URL used for redirecting the user to the external checkout
+	 * @return String The redirect URL
+	 */
+	public function getPaymentLink(): string {
+		return $this->data['paymentLink'] ?? '';
+	}
+
+	/**
+	 * The response authorization status
+	 * @return AuthorizationStatus
+	 * @link https://api-docs.zaver.se/v-1-2-0/checkout.html#authorization-status
+	 */
+	public function getAuthorizationStatus(): AuthorizationStatus {
+		return AuthorizationStatus::create([
+			'payerToken' => $this->data['authorizationStatus']['payerToken'] ?? ''
+		]);
+	}
 }

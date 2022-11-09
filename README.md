@@ -57,6 +57,7 @@ $shipping = LineItem::create()
 
 $urls = MerchantUrls::create()
     ->setSuccessUrl('https://example.com/thank-you')
+    ->setCancelUrl('https://example.com/canceled')
     ->setCallbackUrl('https://example.com/api/payment-callback');
 
 $request = PaymentCreationRequest::create()

@@ -15,6 +15,7 @@ use Zaver\SDK\Utils\DataObject;
  * @method array          getMerchantMetadata()         An associative array of merchant-defined key-value pairs.
  * @method MerchantUrls[] getMerchantUrls()             URLs relevant to the payment.
  * @method LineItem[]     getLineItems()                List of line items.
+ * @method PayerData      getPayerData()                Information on the payer.
  */
 class PaymentCreationRequest extends DataObject {
 	
@@ -110,6 +111,15 @@ class PaymentCreationRequest extends DataObject {
 		}
 
 		$this->data['lineItems'][] = $lineItem;
+
+		return $this;
+	}
+
+	/**
+	 * Information on the payer. Mandatory for Germany (market DE).
+	 */
+	public function setPayerData(PayerData $data): self {
+		$this->data['payerData'] = $data;
 
 		return $this;
 	}
