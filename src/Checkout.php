@@ -4,6 +4,8 @@ use Zaver\SDK\Config\Endpoint;
 use Zaver\SDK\Object\PaymentCreationRequest;
 use Zaver\SDK\Object\PaymentUpdateRequest;
 use Zaver\SDK\Object\PaymentStatusResponse;
+use Zaver\SDK\Object\PaymentCaptureRequest;
+use Zaver\SDK\Object\PaymentCaptureResponse;
 use Zaver\SDK\Utils\Base;
 use Zaver\SDK\Utils\Error;
 use Zaver\SDK\Utils\Html;
@@ -19,6 +21,15 @@ class Checkout extends Base {
 		$response = $this->client->post('/payments/checkout/v1', $request);
 
 		return new PaymentStatusResponse($response);
+	}
+
+	/**
+	 * Capture a payment using a previously created `paymentId` and a `PaymentCaptureRequest` as the message body. In return, you get a `PaymentCaptureResponse`.
+	 */
+	public function capturePayment(string $paymentId, PaymentCaptureRequest $request): PaymentCaptureResponse {
+		$response = $this->client->post('/payments/checkout/v1/capture/' + $paymentId, $request);
+
+		return new PaymentCaptureResponse($response);
 	}
 
 	public function getPaymentStatus(string $paymentId): PaymentStatusResponse {
