@@ -13,7 +13,7 @@ use Zaver\SDK\Utils\DataObject;
  * @method string getLanguage()												The language(/locale) for the payment request.
  * @method string getMerchantPaymentReference()								ID string, e.g. order reference.
  * @method array getMerchantMetadata()										An associative array of merchant-defined key-value pairs.
- * @method MerchantCustomizationOptions getMerchantCustomizationOptions()	An associative array of merchant-defined key-value pairs.
+ * @method MerchantCustomizationOptions getMerchantCustomizations()			An associative array of merchant-defined key-value pairs.
  * @method MerchantUrls getMerchantUrls()									URLs relevant to the payment.
  * @method LineItem[] getLineItems()										List of line items.
  * @method PayerData getPayerData()											Information on the payer.
