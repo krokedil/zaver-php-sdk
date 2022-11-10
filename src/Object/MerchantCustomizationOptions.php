@@ -113,7 +113,7 @@ class MerchantCustomizationOptions extends DataObject {
 			throw new Error('Invalid payment methods.', 400);
 		}
 
-		$this->data['offerPaymentMethods'] = $paymentMethods;
+		$this->data['offerPaymentMethods'] = implode(',', $paymentMethods);
 
 		return $this;
 	}
