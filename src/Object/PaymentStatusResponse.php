@@ -16,10 +16,17 @@ class PaymentStatusResponse extends DataObject {
 	}
 
 	/**
-	 * Expiry time of the payment.
+	 * Expiry time of the checkout session in ISO 8601 format. Payment must be authorized by end consumer before this time.
 	 */
 	public function getValidUntil(): ?DateTime {
 		return (isset($this->data['validUntil']) ? new DateTime($this->data['validUntil']) : null);
+	}
+
+	/**
+	 * Expiry time of the authorized payment session in ISO 8601 format. If delayed capture is used, all captures must be finalized before this time.
+	 */
+	public function getCaptureBefore(): ?DateTime {
+		return (isset($this->data['captureBefore']) ? new DateTime($this->data['captureBefore']) : null);
 	}
 
 	/**
@@ -41,6 +48,20 @@ class PaymentStatusResponse extends DataObject {
 	 */
 	public function getAmount(): float {
 		return (float)($this->data['amount'] ?? 0);
+	}
+
+	/**
+	 * The captured payment amount in the format 100 or the format 100.00.
+	 */
+	public function getCapturedAmount(): float {
+		return (float)($this->data['capturedAmount'] ?? 0);
+	}
+
+	/**
+	 * The refunded payment amount in the format 100 or the format 100.00.
+	 */
+	public function getRefundedAmount(): float {
+		return (float)($this->data['refundedAmount'] ?? 0);
 	}
 
 	/**
@@ -93,5 +114,12 @@ class PaymentStatusResponse extends DataObject {
 		return AuthorizationStatus::create([
 			'payerToken' => $this->data['authorizationStatus']['payerToken'] ?? ''
 		]);
+	}
+
+	/**
+	 * Depending on if the payment request was settled and on which method was used this might be provided.
+	 */
+	public function getSpecificPaymentMethodData(): SpecificPaymentMethodData {
+		
 	}
 }

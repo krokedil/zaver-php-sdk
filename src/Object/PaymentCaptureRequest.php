@@ -7,7 +7,8 @@ use Zaver\SDK\Utils\DataObject;
  * 
  * @method float          getAmount()                   The Payment amount in the format 100 or the format 100.00.
  * @method string         getCurrency()                 The ISO currency code of the Payment. Currently, only "SEK" is supported.
- * @method array          getMerchantMetadata()         An associative array of merchant-defined key-value pairs.
+ * @method array          getMerchantMetadata()         List of lineItems on the payment request to capture.
+ * @method array          getLineItems() 		        An associative array of merchant-defined key-value pairs.
  */
 class PaymentCaptureRequest extends DataObject {
 
@@ -25,6 +26,15 @@ class PaymentCaptureRequest extends DataObject {
 	 */
 	public function setCurrency(string $currency): self {
 		$this->data['currency'] = $currency;
+
+		return $this;
+	}
+
+	/**
+	 * List of lineItems on the payment request to capture.
+	 */
+	public function setLineItems(array $lineItems): self {
+		$this->data['lineItems'] = $lineItems;
 
 		return $this;
 	}
