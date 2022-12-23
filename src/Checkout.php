@@ -27,7 +27,7 @@ class Checkout extends Base {
 	 * Capture a payment using a previously created `paymentId` and a `PaymentCaptureRequest` as the message body. In return, you get a `PaymentCaptureResponse`.
 	 */
 	public function capturePayment(string $paymentId, PaymentCaptureRequest $request): PaymentCaptureResponse {
-		$response = $this->client->post('/payments/checkout/v1/capture/' + $paymentId, $request);
+		$response = $this->client->post('/payments/checkout/v1/capture/' . $paymentId, $request);
 
 		return new PaymentCaptureResponse($response);
 	}
