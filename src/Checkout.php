@@ -6,6 +6,8 @@ use Zaver\SDK\Object\PaymentUpdateRequest;
 use Zaver\SDK\Object\PaymentStatusResponse;
 use Zaver\SDK\Object\PaymentCaptureRequest;
 use Zaver\SDK\Object\PaymentCaptureResponse;
+use Zaver\SDK\Object\PaymentRefundRequest;
+use Zaver\SDK\Object\PaymentRefundResponse;
 use Zaver\SDK\Utils\Base;
 use Zaver\SDK\Utils\Error;
 use Zaver\SDK\Utils\Html;
@@ -30,6 +32,16 @@ class Checkout extends Base {
 		$response = $this->client->post('/payments/checkout/v1/capture/' . $paymentId, $request);
 
 		return new PaymentCaptureResponse($response);
+	}
+
+	/**
+	 * Refund a payment using a previously created `paymentId` and a `PaymentRefundRequest` as the message body. In return, you get a `PaymentRefundResponse`.
+	 */
+	public function refundPayment(string $paymentId, PaymentRefundRequest $request): PaymentRefundResponse {
+		throw new Error('Not implemented yet.', 500);
+		// $response = $this->client->post('/payments/checkout/v1/refund/' . $paymentId, $request);
+
+		// return new PaymentRefundResponse($response);
 	}
 
 	public function getPaymentStatus(string $paymentId): PaymentStatusResponse {
