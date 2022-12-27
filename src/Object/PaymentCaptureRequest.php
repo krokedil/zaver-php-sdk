@@ -31,10 +31,14 @@ class PaymentCaptureRequest extends DataObject {
 	}
 
 	/**
-	 * List of lineItems on the payment request to capture.
+	 * Add a LineItem to capture.
 	 */
-	public function setLineItems(array $lineItems): self {
-		$this->data['lineItems'] = $lineItems;
+	public function addLineItem(LineItem $lineItem): self {
+		if(!isset($this->data['lineItems'])) {
+			$this->data['lineItems'] = [];
+		}
+
+		$this->data['lineItems'][] = $lineItem;
 
 		return $this;
 	}
