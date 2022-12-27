@@ -16,4 +16,10 @@ class PaymentStatus {
 
 	/** An error occurred. The response will contain an array of errors with more information. */
 	const ERROR = 'ERROR';
+
+	/** The payment has been refunded. */
+	const REFUNDED = 'REFUNDED';
+
+	/** The payment has been partially refunded. */
+	const REFUNDED_PARTIALLY = 'REFUNDED_PARTIALLY';
 }
