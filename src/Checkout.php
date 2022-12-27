@@ -27,19 +27,19 @@ class Checkout extends Base {
 	 * Capture a payment using a previously created `paymentId` and a `PaymentCaptureRequest` as the message body. In return, you get a `PaymentCaptureResponse`.
 	 */
 	public function capturePayment(string $paymentId, PaymentCaptureRequest $request): PaymentCaptureResponse {
-		$response = $this->client->post('/payments/checkout/v1/capture/' . $paymentId, $request);
+		$response = $this->client->post("/payments/checkout/v1/$paymentId/capture", $request);
 
 		return new PaymentCaptureResponse($response);
 	}
 
 	public function getPaymentStatus(string $paymentId): PaymentStatusResponse {
-		$response = $this->client->get('/payments/checkout/v1/' . $paymentId);
+		$response = $this->client->get("/payments/checkout/v1/$paymentId");
 
 		return new PaymentStatusResponse($response);
 	}
 
 	public function updatePayment(string $paymentId, PaymentUpdateRequest $request): PaymentStatusResponse {
-		$response = $this->client->patch('/payments/checkout/v1/' . $paymentId, $request);
+		$response = $this->client->patch("/payments/checkout/v1/$paymentId", $request);
 
 		return new PaymentStatusResponse($response);
 	}
