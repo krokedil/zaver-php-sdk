@@ -9,7 +9,7 @@ class PaymentStatus {
 	const SETTLED = 'SETTLED';
 
 	/** The payer has completed the checkout flow, and the payment is awaiting capture. */
-	const PENDING = 'PENDING_MERCHANT_SIGNOFF';
+	const PENDING = 'PENDING_MERCHANT_CAPTURE';
 
 	/** The payment has been cancelled. */
 	const CANCELLED = 'CANCELLED';
