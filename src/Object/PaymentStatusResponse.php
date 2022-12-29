@@ -9,10 +9,25 @@ use DateTime;
 class PaymentStatusResponse extends DataObject {
 
 	/**
+	 * The ID of the payment.
+	 */
+	public function getPaymentId(): string {
+		return $this->data['paymentId'] ?? '';
+	}
+
+	/**
 	 * The token used to start the in-page checkout
 	 */
 	public function getToken(): string {
 		return $this->data['token'] ?? '';
+	}
+
+	/**
+	 * The URL used for redirecting the user to the external checkout
+	 * @return String The redirect URL
+	 */
+	public function getPaymentLink(): string {
+		return $this->data['paymentLink'] ?? '';
 	}
 
 	/**
@@ -30,17 +45,22 @@ class PaymentStatusResponse extends DataObject {
 	}
 
 	/**
-	 * The ID of the payment.
-	 */
-	public function getPaymentId(): string {
-		return $this->data['paymentId'] ?? '';
-	}
-
-	/**
 	 * Reference set by merchant, e.g. order reference.
 	 */
 	public function getMerchantPaymentReference(): string {
 		return $this->data['merchantPaymentReference'] ?? '';
+	}
+
+	/**
+	 * List of line items from the Payment Request.
+	 * @return LineItem[] List of line items
+	 */
+	public function getLineItems(): array {
+		if(empty($this->data['lineItems'])) {
+			return [];
+		}
+
+		return array_map(fn($item) => ($item instanceof LineItem ? $item : LineItem::create($item)), $this->data['lineItems']);
 	}
 
 	/**
@@ -65,7 +85,7 @@ class PaymentStatusResponse extends DataObject {
 	}
 
 	/**
-	 * The status of the payment. Possible statuses are `CREATED`, `SETTLED`, `CANCELLED` and `ERROR`.
+	 * The status of the payment. One of `PaymentStatus`.
 	 */
 	public function getPaymentStatus(): string {
 		return $this->data['paymentStatus'] ?? '';
@@ -86,26 +106,6 @@ class PaymentStatusResponse extends DataObject {
 	}
 
 	/**
-	 * List of line items from the Payment Request.
-	 * @return LineItem[] List of line items
-	 */
-	public function getLineItems(): array {
-		if(empty($this->data['lineItems'])) {
-			return [];
-		}
-
-		return array_map(fn($item) => ($item instanceof LineItem ? $item : LineItem::create($item)), $this->data['lineItems']);
-	}
-
-	/**
-	 * The URL used for redirecting the user to the external checkout
-	 * @return String The redirect URL
-	 */
-	public function getPaymentLink(): string {
-		return $this->data['paymentLink'] ?? '';
-	}
-
-	/**
 	 * The response authorization status
 	 * @return AuthorizationStatus
 	 * @link https://api-docs.zaver.se/v-1-2-0/checkout.html#authorization-status
@@ -119,7 +119,11 @@ class PaymentStatusResponse extends DataObject {
 	/**
 	 * Depending on if the payment request was settled and on which method was used this might be provided.
 	 */
-	public function getSpecificPaymentMethodData(): SpecificPaymentMethodData {
-		
+	public function getSpecificPaymentMethodData(): ?SpecificPaymentMethodData {
+		if (!empty($this->data['specificPaymentMethodData']) && is_array($this->data['specificPaymentMethodData'])) {
+			return SpecificPaymentMethodData::create($this->data['specificPaymentMethodData']);
+		}
+
+		return null;
 	}
 }
