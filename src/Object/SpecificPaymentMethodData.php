@@ -32,7 +32,7 @@ class SpecificPaymentMethodData extends DataObject {
 	 * Specific payment method for this paymentLink/checkoutToken.
 	 */
 	public function setPaymentMethod(string $paymentMethod): self {
-		if(!in_array($paymentMethod, MerchantCustomizationOptions::OFFERED_PAYMENT_METHODS)) {
+		if(!in_array($paymentMethod, MerchantCustomizationOptions::PAYMENT_METHODS)) {
 			throw new Error('Invalid payment method.', 400);
 		}
 
