@@ -1,11 +1,15 @@
 <?php
+
 namespace Zaver\SDK;
+
 use Zaver\SDK\Config\Endpoint;
 use Zaver\SDK\Object\PaymentCreationRequest;
 use Zaver\SDK\Object\PaymentUpdateRequest;
 use Zaver\SDK\Object\PaymentStatusResponse;
 use Zaver\SDK\Object\PaymentCaptureRequest;
 use Zaver\SDK\Object\PaymentCaptureResponse;
+use Zaver\SDK\Object\PaymentMethodsRequest;
+use Zaver\SDK\Object\PaymentMethodsResponse;
 use Zaver\SDK\Utils\Base;
 use Zaver\SDK\Utils\Error;
 use Zaver\SDK\Utils\Html;
@@ -36,6 +40,16 @@ class Checkout extends Base {
 		$response = $this->client->get("/payments/checkout/v1/$paymentId");
 
 		return new PaymentStatusResponse($response);
+	}
+
+	public function getPaymentMethods(PaymentMethodsRequest $request): PaymentMethodsResponse {
+		if(!$request->hasMarket()) {
+			throw new Error('The request is missing a valid "market" property.');
+		}
+
+		$response = $this->client->get("/payments/checkout/paymentmethods/v1?" . $request->getQuery());
+
+		return new PaymentMethodsResponse($response);
 	}
 
 	public function updatePayment(string $paymentId, PaymentUpdateRequest $request): PaymentStatusResponse {
