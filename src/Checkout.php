@@ -43,7 +43,7 @@ class Checkout extends Base {
 	}
 
 	public function getPaymentMethods(PaymentMethodsRequest $request): PaymentMethodsResponse {
-		if(!$request->hasMarket()) {
+		if(!$request->getMarket()) {
 			throw new Error('The request is missing a valid "market" property.');
 		}
 
