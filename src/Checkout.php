@@ -43,11 +43,10 @@ class Checkout extends Base {
 	}
 
 	public function getPaymentMethods(PaymentMethodsRequest $request): PaymentMethodsResponse {
-		if(!$request->getMarket()) {
-			throw new Error('The request is missing a valid "market" property.');
-		}
+		$data = $request->getData();
+		$query = !empty($data) ? '?' . http_build_query($data) : '';
 
-		$response = $this->client->get("/payments/checkout/paymentmethods/v1?" . $request->getQuery());
+		$response = $this->client->get("/payments/checkout/paymentmethods/v1$query");
 
 		return new PaymentMethodsResponse($response);
 	}

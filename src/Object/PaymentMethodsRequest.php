@@ -40,7 +40,7 @@ class PaymentMethodsRequest extends DataObject {
 	}
 
 
-	public function getQuery() {
-		return http_build_query($this->data);
+	public function getData(): array {
+		return $this->data;
 	}
 }
