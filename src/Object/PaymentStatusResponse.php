@@ -118,10 +118,13 @@ class PaymentStatusResponse extends DataObject {
 
 	/**
 	 * Depending on if the payment request was settled and on which method was used this might be provided.
+	 * @return SpecificPaymentMethodData[]|null
 	 */
-	public function getSpecificPaymentMethodData(): ?SpecificPaymentMethodData {
+	public function getSpecificPaymentMethodData(): ?array {
 		if (!empty($this->data['specificPaymentMethodData']) && is_array($this->data['specificPaymentMethodData'])) {
-			return SpecificPaymentMethodData::create($this->data['specificPaymentMethodData']);
+			return array_map(function($item) {
+				return SpecificPaymentMethodData::create($item);
+			}, $this->data['specificPaymentMethodData']);
 		}
 
 		return null;

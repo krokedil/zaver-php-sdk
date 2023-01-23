@@ -2,6 +2,9 @@
 
 namespace Zaver\SDK\Object;
 
+use Zaver\SDK\Utils\DataObject;
+use Zaver\SDK\Utils\Error;
+
 /**
  * If your API-key is configured to allow specificPaymentMethods, an array of this object will be returned.
  * 
