@@ -9,6 +9,7 @@ use Zaver\SDK\Utils\DataObject;
  * @method string         getTitle()            The title of the payment method for display purposes.
  * @method string         getDescription()      A short text that describes the payment method.
  * @method string         getIconSvgSrc()       A URL to an SVG icon for the payment method.
+ * @method array          getLocalizations()    Array of localizations for title, descriptions and icon corresponding to the selected market.
  */
 class PaymentMethod extends DataObject {
 
