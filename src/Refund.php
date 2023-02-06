@@ -39,12 +39,12 @@ class Refund extends Base {
 		}
 
 		if(!is_null($callbackKey) && !hash_equals($callbackKey, Helper::getAuthorizationKey())) {
-			throw new Error('Invalid callback key');
+			throw new Error('Invalid callback key', 401);
 		}
 
 		try {
 			if($_SERVER['REQUEST_METHOD'] !== 'POST') {
-				throw new Error('Invalid HTTP method');
+				throw new Error('Invalid HTTP method', 405);
 			}
 			
 			if(is_null($content)) {
