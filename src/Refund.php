@@ -33,7 +33,11 @@ class Refund extends Base {
 		return new RefundResponse($response);
 	}
 
-	public function receiveCallback(?string $callbackKey = null): RefundResponse {
+	public function receiveCallback(?string $callbackKey = null, ?string $content = null): RefundResponse {
+		if(is_null($callbackKey)) {
+			$callbackKey = $this->getCallbackToken();
+		}
+
 		if(!is_null($callbackKey) && !hash_equals($callbackKey, Helper::getAuthorizationKey())) {
 			throw new Error('Invalid callback key');
 		}
@@ -43,7 +47,11 @@ class Refund extends Base {
 				throw new Error('Invalid HTTP method');
 			}
 			
-			$data = json_decode(file_get_contents('php://input'), true, 10, JSON_THROW_ON_ERROR);
+			if(is_null($content)) {
+				$content = file_get_contents('php://input');
+			}
+			
+			$data = json_decode($content, true, 10, JSON_THROW_ON_ERROR);
 		}
 		catch(Exception $e) {
 			throw new Error('Failed to decode Zaver response', null, $e);

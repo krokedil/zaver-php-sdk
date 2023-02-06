@@ -57,7 +57,11 @@ class Checkout extends Base {
 		return new PaymentStatusResponse($response);
 	}
 
-	public function receiveCallback(?string $callbackKey = null): PaymentStatusResponse {
+	public function receiveCallback(?string $callbackKey = null, ?string $content = null): PaymentStatusResponse {
+		if(is_null($callbackKey)) {
+			$callbackKey = $this->getCallbackToken();
+		}
+
 		if(!is_null($callbackKey) && !hash_equals($callbackKey, Helper::getAuthorizationKey())) {
 			throw new Error('Invalid callback key');
 		}
@@ -66,8 +70,12 @@ class Checkout extends Base {
 			if($_SERVER['REQUEST_METHOD'] !== 'POST') {
 				throw new Error('Invalid HTTP method');
 			}
+
+			if(is_null($content)) {
+				$content = file_get_contents('php://input');
+			}
 			
-			$data = json_decode(file_get_contents('php://input'), true, 10, JSON_THROW_ON_ERROR);
+			$data = json_decode($content, true, 10, JSON_THROW_ON_ERROR);
 		}
 		catch(Exception $e) {
 			throw new Error('Failed to decode Zaver response', null, $e);
