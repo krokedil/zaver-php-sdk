@@ -2,6 +2,7 @@
 namespace Zaver\SDK\Object;
 
 use DateTime;
+use DateTimeInterface;
 use Zaver\SDK\Utils\DataObject;
 
 /**
@@ -63,7 +64,7 @@ class PayerData extends DataObject {
 	/**
 	 * Date of birth of the payer in question. Given in ISO 8601 format. Example: 1994-07-14
 	 */
-    public function setDateOfBirth(DateTime $dateOfBirth): self {
+    public function setDateOfBirth(DateTimeInterface $dateOfBirth): self {
 		$this->data['dateOfBirth'] = $dateOfBirth->format('Y-m-d');
 
 		return $this;
