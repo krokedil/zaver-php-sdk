@@ -4,7 +4,7 @@ use Zaver\SDK\Utils\DataObject;
 
 /**
  * Line item for `PaymentCreationRequest`
- * 
+ *
  * @method string getId()                A unique id for the line item. Set by Zaver.
  * @method string getName()              Name of the item being sold.
  * @method int    getQuantity()          Total number of units being paid.
@@ -19,6 +19,26 @@ use Zaver\SDK\Utils\DataObject;
  * @method string getQuantityUnit()      The unit in which quantity is measured - e.g. pcs, kgs.
  */
 class LineItem extends DataObject {
+
+	/**
+	 * Optional. The id of the line item.
+	 * This is set by Zaver when the payment request is created.
+	 * Should only be set when performing a payment capture of a line item in order
+	 * to match the line item created in the payment request.
+	 *
+	 * Recommendation:
+	 * Create a payment request with line items that have [merchantReference] set to
+	 * a unique identifier in your system. Then, in the response or, when calling the
+	 * getInfo endpoint, the combination of merchantReference & id will be returned.
+	 * This id can then be used to capture the original line items (from the payment
+	 * request creation).
+	 */
+	public function setId(string $id): self {
+		$this->data['id'] = $id;
+
+		return $this;
+	}
+
 
 	/**
 	 * Required. Name of the item being sold.
