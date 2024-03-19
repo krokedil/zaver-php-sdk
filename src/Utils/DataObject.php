@@ -39,7 +39,7 @@ abstract class DataObject implements JsonSerializable, ArrayAccess {
 	/**
 	 * @ignore
 	 */
-	public function jsonSerialize() {
+	public function jsonSerialize() : mixed {
         return $this->data;
     }
 
@@ -53,7 +53,7 @@ abstract class DataObject implements JsonSerializable, ArrayAccess {
 	/**
 	 * @ignore
 	 */
-	public function offsetGet($offset) {
+	public function offsetGet($offset) : mixed {
 		return $this->data[$offset] ?? null;
 	}
 
