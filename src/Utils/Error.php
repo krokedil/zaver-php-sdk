@@ -20,7 +20,7 @@ class Error extends Exception {
 
 			parent::__construct($error['errorMessage'] ?? '', 0, $previous);
 
-			if(isset($error['errorCode'])) $this->errorCode = $error['errorCode'];
+			if(isset($error['errorCode'])) $this->errorCode = $error['errorCode'] ?? null;
 			if(isset($error['docs'])) $this->docs = $error['docs'];
 
 			$this->errors = $errorMessage;
