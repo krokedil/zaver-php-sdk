@@ -6,6 +6,7 @@
     "homepage": "https://github.com/zaver-io/zaver-php-sdk",
     "readme": "README.md",
     "license": "MIT",
+    "version": "2.0.0",
     "authors": [
         {
             "name": "Webbmaffian",
