@@ -4,7 +4,7 @@ use Zaver\SDK\Utils\DataObject;
 
 /**
  * The Payment Creation Request contains the necessary information to create a payment.
- * 
+ *
  * @method string getTitle()												A short name/description of the payment.
  * @method string getDescription()											A longer description of the payment.
  * @method float getAmount()												The Payment amount in the format 100 or the format 100.00.
@@ -12,14 +12,14 @@ use Zaver\SDK\Utils\DataObject;
  * @method string getMarket()												The market(/country) for the payment request. Available markets depend on the merchant's contract with Zaver.
  * @method string getLanguage()												The language(/locale) for the payment request.
  * @method string getMerchantPaymentReference()								ID string, e.g. order reference.
- * @method array getMerchantMetadata()										An associative array of merchant-defined key-value pairs.
+ * @method array getPaymentMetadata()										An associative array of merchant-defined key-value pairs.
  * @method MerchantCustomizationOptions getMerchantCustomizations()			An associative array of merchant-defined key-value pairs.
  * @method MerchantUrls getMerchantUrls()									URLs relevant to the payment.
  * @method LineItem[] getLineItems()										List of line items.
  * @method PayerData getPayerData()											Information on the payer.
  */
 class PaymentCreationRequest extends DataObject {
-	
+
 	/**
 	 * Required. A short name/description of the payment.
 	 */
@@ -87,11 +87,13 @@ class PaymentCreationRequest extends DataObject {
 	/**
 	 * An associative array of merchant-defined key-value pairs. These are returned with the Payment Status Response.
 	 * A Maximum of 20 pairs is allowed, each key and value with a maximum length of 200 characters.
+	 *
+	 * @deprecated Use `setPaymentMetadata` instead.
 	 */
 	public function setMerchantMetadata(array $merchantMetadata): self {
-		$this->data['merchantMetadata'] = $merchantMetadata;
-
-		return $this;
+		// Replaced by setPaymentMetadata.
+		error_log('Deprecated method `Zaver\SDK\Object\PaymentCreationRequest::setMerchantMetadata` called. Use `Zaver\SDK\Object\PaymentCreationRequest::setPaymentMetadata` instead. Deprecated since version 2.0.0');
+		return $this->setPaymentMetadata($merchantMetadata);
 	}
 
 	/**
@@ -130,6 +132,43 @@ class PaymentCreationRequest extends DataObject {
 	 */
 	public function setPayerData(PayerData $data): self {
 		$this->data['payerData'] = $data;
+
+		// Take the email and phone number from the payer data and set it as sendLinkTo.
+		if($data->getEmail() && $data->getPhoneNumber()) {
+			$this->setSendLinkTo(SendLinkTo::create()->setEmail($data->getEmail())->setPhoneNumber($data->getPhoneNumber()));
+		} elseif($data->getEmail()) {
+			$this->setSendLinkTo(SendLinkTo::create()->setEmail($data->getEmail()));
+		} elseif($data->getPhoneNumber()) {
+			$this->setSendLinkTo(SendLinkTo::create()->setPhoneNumber($data->getPhoneNumber()));
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Add a payment idempotency key.
+	 */
+	public function setIdempotencyKey(string $idempotencyKey): self {
+		$this->data['idempotencyKey'] = $idempotencyKey;
+
+		return $this;
+	}
+
+	/**
+	 * Add a sendLinkTo for email or phonenumber.
+	 */
+	public function setSendLinkTo(SendLinkTo $sendLinkTo): self {
+		$this->data['sendLinkTo'] = $sendLinkTo;
+
+		return $this;
+	}
+
+	/**
+	 * An associative array of merchant-defined key-value pairs. These are returned with the Payment Status Response.
+	 * A Maximum of 20 pairs is allowed, each key and value with a maximum length of 200 characters.
+	 */
+	public function setPaymentMetadata(array $paymentMetadata): self {
+		$this->data['paymentMetadata'] = $paymentMetadata;
 
 		return $this;
 	}
