@@ -62,7 +62,6 @@ class Client {
 	private function request(string $method, string $uri, $body = null): array {
 		try {
 			$options = [];
-
 			if(!is_null($body)) {
 				$options['json'] = $body;
 			}
