@@ -98,7 +98,7 @@ class PaymentCreationRequest extends DataObject {
 	}
 
 	/**
-	 * Options for customomizing the payment request. See `MerchantCustomizationOptions`.
+	 * Options for customizing the payment request. See `MerchantCustomizationOptions`.
 	 */
 	public function setMerchantCustomizations( MerchantCustomizationOptions $options ): self {
 		$this->data['merchantCustomizations'] = $options;
