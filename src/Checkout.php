@@ -54,7 +54,7 @@ class Checkout extends Base {
 		$data = $request->getData();
 		$query = !empty($data) ? '?' . http_build_query($data) : '';
 
-		$response = $this->client->get("/payments/link/paymentmethods/v2$query");
+		$response = $this->client->get("/payments/link/v2/paymentmethods/$query");
 
 		return new PaymentMethodsResponse($response);
 	}
