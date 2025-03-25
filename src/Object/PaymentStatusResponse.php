@@ -24,7 +24,7 @@ class PaymentStatusResponse extends DataObject {
 
 	/**
 	 * The URL used for redirecting the user to the external checkout
-	 * @return String The redirect URL
+	 * @return string The redirect URL
 	 */
 	public function getPaymentLink(): string {
 		return $this->data['paymentLink'] ?? '';
