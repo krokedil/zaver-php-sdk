@@ -3,6 +3,7 @@ namespace Zaver\SDK\Utils;
 use Exception;
 use GuzzleHttp;
 use GuzzleHttp\Exception\ClientException;
+use JsonSerializable;
 use Psr\Http\Message\ResponseInterface;
 
 class Client {
@@ -69,19 +70,21 @@ class Client {
 			return self::unwrap($this->client->request($method, $uri, $options));
 		}
 		catch(Error $e) {
+			$e->setRequestBody($body);
+			$e->setResponseBody($response ?? null);
 			throw $e;
 		}
 		catch(ClientException $e) {
 			$response = self::unwrap($e->getResponse());
 
 			if(empty($response['errors']) || !is_array($response['errors'])) {
-				throw new Error('An error occured while communicating with the Zaver API', null, $e);
+				throw new Error('An error occured while communicating with the Zaver API', null, null, $body, $response, $e);
 			}
 
-			throw new Error($response['errors'], null, null, $e);
+			throw new Error($response['errors'], null, null, $body, $response, $e);
 		}
 		catch(Exception $e) {
-			throw new Error('An error occured while communicating with the Zaver API', null, $e);
+			throw new Error('An error occured while communicating with the Zaver API', null, null, $body, $response, $e);
 		}
 	}
 
@@ -90,7 +93,7 @@ class Client {
 			return json_decode($response->getBody(), true, 10, JSON_THROW_ON_ERROR);
 		}
 		catch(Exception $e) {
-			throw new Error('Failed to decode Zaver response', null, $e);
+			throw new Error('Failed to decode Zaver response', null, null, null, null, $e);
 		}
 	}
 }
