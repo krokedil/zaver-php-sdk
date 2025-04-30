@@ -15,11 +15,11 @@ class Error extends Exception {
 	 * @param string|array $errorMessage
 	 * @param string|null $errorCode
 	 * @param string|null $docs
-	 * @param JsonSerializable|null $requestBody
+	 * @param JsonSerializable|array|null $requestBody
 	 * @param array|null $responseBody
 	 * @param Throwable|null $previous
 	 */
-	public function __construct($errorMessage, ?string $errorCode = null, ?string $docs = null, ?JsonSerializable $requestBody = null, ?array $responseBody = null, ?Throwable $previous = null) {
+	public function __construct($errorMessage, ?string $errorCode = null, ?string $docs = null, $requestBody = null, ?array $responseBody = null, ?Throwable $previous = null) {
 		if(is_array($errorMessage) && !empty($errorMessage)) {
 			$error = $errorMessage[0];
 
