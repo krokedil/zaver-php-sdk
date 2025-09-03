@@ -3,6 +3,7 @@ namespace Zaver\SDK\Utils;
 use Exception;
 use GuzzleHttp;
 use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\ConnectException;
 use JsonSerializable;
 use Psr\Http\Message\ResponseInterface;
 
@@ -12,11 +13,12 @@ class Client {
 	/**
 	 * @param string $endpoint Endpoint for all requests
 	 * @param string $apiKey Bearer token
+	 * @param int $timeout Request timeout in seconds. Default 15 seconds
 	 */
-	public function __construct(string $endpoint, string $apiKey) {
+	public function __construct(string $endpoint, string $apiKey, int $timeout = 15) {
 		$this->client = new GuzzleHttp\Client([
 			'base_uri' => $endpoint,
-			'timeout' => 3,
+			'timeout' => $timeout,
 			'headers' => [
 				'Accept' => 'application/json',
 				'Content-Type' => 'application/json',
@@ -78,13 +80,13 @@ class Client {
 			$response = self::unwrap($e->getResponse());
 
 			if(empty($response['errors']) || !is_array($response['errors'])) {
-				throw new Error('An error occured while communicating with the Zaver API', null, null, $body, $response, $e);
+				throw new Error('An error occurred while communicating with the Zaver API', null, null, $body, $response, $e);
 			}
 
 			throw new Error($response['errors'], null, null, $body, $response, $e);
 		}
 		catch(Exception $e) {
-			throw new Error('An error occured while communicating with the Zaver API', null, null, $body, $response, $e);
+			throw new Error('An error occurred while communicating with the Zaver API', null, null, $body, $response ?? null, $e);
 		}
 	}
 
